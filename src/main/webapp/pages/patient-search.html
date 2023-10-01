@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <div class="nhsd-t-flex nhsd-t-flex--justify-content-centre nhsd-!t-padding-top-4" ng-keydown="$event.keyCode === 13 && search()">
+                <svg  ng-show="loading" xmlns="http://www.w3.org/2000/svg" width="256" height="256" stroke="#005eb8" viewBox="0 0 24 24"><style>.spinner_V8m1{transform-origin:center;animation:spinner_zKoa 2s linear infinite}.spinner_V8m1 circle{stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite}@keyframes spinner_zKoa{100%{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g class="spinner_V8m1"><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"/></g></svg>
+                <div  ng-show="!loading && !searchComplete">
+                    <div class="nhsd-t-form-group nhsd-m-date-input">
+                        <fieldset class="nhsd-t-form-fieldset" role="group" aria-describedby="nhsd-t-form__hint">
+                            <label class="nhsd-t-form-label" for="first-name">Date of Birth</label>
+                            <p class="nhsd-t-form__hint nhsd-t-form-hint nhsd-!t-margin-top-0">The patients date of birth (optional)</p>
+                            <div class="nhsd-m-date-input__date-input">
+                                <div class="nhsd-m-date-input-day">
+                                    <label class="nhsd-m-date-input--day-label" for="day">
+                                        Day
+                                    </label>
+                                    <input ng-model="searchRequest.dateOfBirth.day" class="nhsd-t-form-input nhsd-t-form-input-s" min="0 type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                                <div class="nhsd-m-date-input-month">
+                                    <label class="nhsd-m-date-input--month-label" for="month">
+                                        Month
+                                    </label>
+                                    <input ng-model="searchRequest.dateOfBirth.month" class="nhsd-t-form-input nhsd-t-form-input-s" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                                <div class="nhsd-m-date-input-year">
+                                    <label class="nhsd-m-date-input--year-label" for="year">
+                                        Year
+                                    </label>
+                                    <input ng-model="searchRequest.dateOfBirth.year" class="nhsd-t-form-input nhsd-t-form-input-s" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="nhsd-t-form-group">
+                        <label class="nhsd-t-form-label" for="first-name">NHS Number</label>
+                        <span class="nhsd-t-form-hint">The patients 10 digit NHS number (optional)</span>
+                        <input ng-model="searchRequest.nhsNumber" class="nhsd-t-form-input" type="text" autocomplete="off">
+                    </div>
+                    <div class="nhsd-t-form-group">
+                        <label class="nhsd-t-form-label" for="first-name">Family Name</label>
+                        <span class="nhsd-t-form-hint">The patients family name (optional)</span>
+                        <input ng-model="searchRequest.familyName" class="nhsd-t-form-input" type="text" autocomplete="off">
+                    </div>
+                    <div class="nhsd-t-form-group">
+                        <label class="nhsd-t-form-label" for="first-name">Given Name</label>
+                        <span class="nhsd-t-form-hint">The patients given name (optional)</span>
+                        <input ng-model="searchRequest.givenName" class="nhsd-t-form-input" type="text" autocomplete="off">
+                    </div>
+                    <button  class="nhsd-a-button"  type="button" ng-click="search()">
+                        <span class="nhsd-a-icon nhsd-a-icon--size-s">
+                            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path d="M7,10.9c-2.1,0-3.9-1.7-3.9-3.9c0-2.1,1.7-3.9,3.9-3.9c2.1,0,3.9,1.7,3.9,3.9C10.9,9.2,9.2,10.9,7,10.9zM13.4,14.8l1.4-1.4l-3-3c0.7-1,1.1-2.1,1.1-3.4c0-3.2-2.6-5.8-5.8-5.8C3.8,1.2,1.2,3.8,1.2,7c0,3.2,2.6,5.8,5.8,5.8c1.3,0,2.4-0.4,3.4-1.1L13.4,14.8z"/></svg>
+                        </span>
+                        <span class="nhsd-a-button__label">Search</span>
+                    </button>
+                </div>
+                <div class="nhsd-m-table nhsd-t-body nhsd-!t-padding-4" ng-show="!loading && searchComplete">
+                    <button  class="nhsd-a-button"  type="button" ng-click="searchComplete = false">
+                        <span class="nhsd-a-icon nhsd-a-icon--size-s">
+                            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path d="M7,10.9c-2.1,0-3.9-1.7-3.9-3.9c0-2.1,1.7-3.9,3.9-3.9c2.1,0,3.9,1.7,3.9,3.9C10.9,9.2,9.2,10.9,7,10.9zM13.4,14.8l1.4-1.4l-3-3c0.7-1,1.1-2.1,1.1-3.4c0-3.2-2.6-5.8-5.8-5.8C3.8,1.2,1.2,3.8,1.2,7c0,3.2,2.6,5.8,5.8,5.8c1.3,0,2.4-0.4,3.4-1.1L13.4,14.8z"/></svg>
+                        </span>
+                        <span class="nhsd-a-button__label">Search</span>
+                    </button>
+                    <h2 class="nhsd-t-heading-xl nhsd-!t-margin-bottom-6">{{patientsFound.length}} patient(s) identified using the following search terms: </h2>
+                    <ul class="nhsd-t-list nhsd-t-list--bullet nhsd-!t-margin-bottom-6">
+                        <li ng-if="searchRequest.dateOfBirth.year > 0">Date of Birth: {{searchRequest.dateOfBirth.year}}-{{searchRequest.dateOfBirth.month}}-{{searchRequest.dateOfBirth.day}}</li>
+                        <li ng-if="searchRequest.nhsNumber && searchRequest.nhsNumber.trim().length > 0">NHS Number: {{searchRequest.nhsNumber}}</li>
+                        <li ng-if="searchRequest.familyName && searchRequest.familyName.trim().length > 0">Family Name: {{searchRequest.familyName}}</li>
+                        <li ng-if="searchRequest.givenName && searchRequest.givenName.trim().length > 0">Given Name: {{searchRequest.givenName}} </li>
+                    </ul>
+                    <form class="nhsd-t-form" novalidate="" autocomplete="off">
+                        <div class="nhsd-t-form-group">
+                            <label class="nhsd-t-form-label" for="county">Matched Patients</label>
+                            <span class="nhsd-t-form-hint">Please select a patient to continue</span>
+                            <div class="nhsd-t-form-control">
+
+
+                                <div class="nhsd-m-table nhsd-t-body">
+
+                                    <table  data-responsive >
+                                        <thead>
+                                            <tr>
+                                                <th>Given Name(s)</th>
+                                                <th>Family Name(s)</th>
+                                                <th>Date of Birth</th>
+                                                <th>NHS Number</th> 
+                                            </tr>
+                                        </thead>
+
+                                        <tbody ng-class="{'nhsd-m-table__highlighted-items': selectedPatient == patient.id }" ng-repeat="patient in patientsFound" >                                            
+                                            <tr >
+                                                <td><a ng-click="setSelected(patient.id)">{{patient.resource.givenNames}}</a></td>
+                                                <td>{{patient.resource.familyNames}}</td>
+                                                <td>{{patient.resource.birthDate}}</td>
+                                                <td>{{patient.resource.nhsNumber}}</td>
+                                            </tr>
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
