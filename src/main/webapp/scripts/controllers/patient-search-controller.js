@@ -31,6 +31,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
 
             var validDate = true;
             var dobSupplied = false;
+           
 
             if (dob.day > 0 || dob.month > 0 || dob.year > 0) {
 
@@ -38,7 +39,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                     validDate = false;
                 }
 
-                if (dob.day.length != 2 || dob.month.length != 2 || dob.year.length != 4) {
+                if (dob.day.toString().length != 2 || dob.month.toString().length != 2 || dob.year.toString().length != 4) {
                     validDate = false;
                 }
 
