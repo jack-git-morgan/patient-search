@@ -42,9 +42,7 @@ public class HttpRequestManager {
     }
 
     public Object makeGetRequest(String requestUrl, Class transformer) {
-            
-        System.out.println("Request URL: " + requestUrl);
-        
+
         if (requestUrl == null) return null;
         
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -57,11 +55,8 @@ public class HttpRequestManager {
 
         try {
             HttpResponse response = httpClient.execute(httpGet);
-
             String responseBody = EntityUtils.toString(response.getEntity());
             
-            System.out.println("Response Body: " + responseBody);
-
             ObjectMapper objectMapper = new ObjectMapper();
             searchResults = objectMapper.readValue(responseBody, transformer);
 
