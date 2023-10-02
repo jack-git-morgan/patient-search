@@ -25,21 +25,26 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
 
             var dob = $scope.searchRequest.dateOfBirth;
 
-            dob.day = !dob.day ? 0 : dob.day;
-            dob.month = !dob.month ? 0 : dob.month;
-            dob.year = !dob.year ? 0 : dob.year;
+            dob.day = !dob.day ? "0" : dob.day;
+            dob.month = !dob.month ? "0" : dob.month;
+            dob.year = !dob.year ? "0" : dob.year;
 
             var validDate = true;
             var dobSupplied = false;
            
-
-            if (dob.day > 0 || dob.month > 0 || dob.year > 0) {
-
-                if (dob.day == 0 || dob.month == 0 || dob.year == 0) {
+            if (dob.day != "0" || dob.month != "0" || dob.year != "0") {
+                
+                let isNum = /^\d+$/.test(dob.year) && /^\d+$/.test(dob.month) && /^\d+$/.test(dob.day);
+                
+                if (!isNum) {
+                    validDate = false;
+                }
+                
+                if (dob.day == "0" || dob.month == "0" || dob.year == "0") {
                     validDate = false;
                 }
 
-                if (dob.day.toString().length != 2 || dob.month.toString().length != 2 || dob.year.toString().length != 4) {
+                if (dob.day.length != 2 || dob.month.length != 2 || dob.year.length != 4) {
                     validDate = false;
                 }
 
@@ -54,7 +59,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                 return;
             }
 
-            if ($scope.searchRequest.nhsNumber != null && $scope.searchRequest.nhsNumber > 0) {
+            if ($scope.searchRequest.nhsNumber != null && $scope.searchRequest.nhsNumber.trim().length > 0) {
 
                 const isNumbersOnly = /^\d+$/.test($scope.searchRequest.nhsNumber);
 
@@ -64,7 +69,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                     return;
                 }
 
-                if ($scope.searchRequest.nhsNumber.toString().trim().length != 10) {
+                if ($scope.searchRequest.nhsNumber.trim().length != 10) {
                     toastService.openToast("NHS number must be 10 digits long");
                     $scope.loading = false;
                     return;

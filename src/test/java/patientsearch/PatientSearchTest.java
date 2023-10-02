@@ -27,6 +27,7 @@ public class PatientSearchTest {
 
     }
 
+    // Pass local
     @Test
     public void testSearchByDateOfBirth() {
 
@@ -53,6 +54,7 @@ public class PatientSearchTest {
         assertEquals(resource.getIdentifier().get(0).getValue(), "9449305552");
     }
 
+    // Pass local
     @Test
     public void testSearchByNhsNumber() {
 
@@ -73,6 +75,7 @@ public class PatientSearchTest {
         assertEquals(resource.getIdentifier().get(0).getValue(), "9449305501");
     }
 
+    // Pass local
     @Test
     public void testSearchByFamilyName() {
 
@@ -93,6 +96,7 @@ public class PatientSearchTest {
         assertEquals(resource.getIdentifier().get(0).getValue(), "9449303517");
     }
 
+    // Pass local
     @Test
     public void testSearchByGivenName() {
 
@@ -113,6 +117,7 @@ public class PatientSearchTest {
         assertEquals(resource.getIdentifier().get(0).getValue(), "9449304599");
     }
 
+    // Pass local
     @Test
     public void testSearchTwoFieldsInCombination() {
 
@@ -135,6 +140,7 @@ public class PatientSearchTest {
 
     }
 
+    // 
     @Test
     public void testSearchThreeFieldsInCombination() {
 
@@ -157,6 +163,7 @@ public class PatientSearchTest {
         assertEquals(resource.getIdentifier().get(0).getValue(), "9449306311");
     }
 
+    // Pass local
     @Test
     public void testSearchFourFieldsInCombination() {
 
@@ -187,6 +194,7 @@ public class PatientSearchTest {
 
     }
 
+    // Pass local
     @Test
     public void testSearchMultipleResults() {
 
