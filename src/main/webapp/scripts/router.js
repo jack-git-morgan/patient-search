@@ -1,5 +1,6 @@
 
 var app = angular.module('patientSearch', ['ui.router', 'ngToast']);
+
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
         var masterState = {

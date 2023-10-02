@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -23,19 +18,19 @@ and open the template in the editor.
                                     <label class="nhsd-m-date-input--day-label" for="day">
                                         Day
                                     </label>
-                                    <input ng-model="searchRequest.dateOfBirth.day" class="nhsd-t-form-input nhsd-t-form-input-s" min="0 type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input ng-model="searchRequest.dateOfBirth.day"  class="nhsd-t-form-input nhsd-t-form-input-s" min="0" type="number"/>
                                 </div>
                                 <div class="nhsd-m-date-input-month">
                                     <label class="nhsd-m-date-input--month-label" for="month">
                                         Month
                                     </label>
-                                    <input ng-model="searchRequest.dateOfBirth.month" class="nhsd-t-form-input nhsd-t-form-input-s" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input ng-model="searchRequest.dateOfBirth.month" class="nhsd-t-form-input nhsd-t-form-input-s" type="number"/>
                                 </div>
                                 <div class="nhsd-m-date-input-year">
                                     <label class="nhsd-m-date-input--year-label" for="year">
                                         Year
                                     </label>
-                                    <input ng-model="searchRequest.dateOfBirth.year" class="nhsd-t-form-input nhsd-t-form-input-s" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input ng-model="searchRequest.dateOfBirth.year" class="nhsd-t-form-input nhsd-t-form-input-s" type="number"/>
                                 </div>
                             </div>
                         </fieldset>
@@ -43,7 +38,7 @@ and open the template in the editor.
                     <div class="nhsd-t-form-group">
                         <label class="nhsd-t-form-label" for="first-name">NHS Number</label>
                         <span class="nhsd-t-form-hint">The patients 10 digit NHS number (optional)</span>
-                        <input ng-model="searchRequest.nhsNumber" class="nhsd-t-form-input" type="text" autocomplete="off">
+                        <input ng-model="searchRequest.nhsNumber"  class="nhsd-t-form-input" type="number" autocomplete="off">
                     </div>
                     <div class="nhsd-t-form-group">
                         <label class="nhsd-t-form-label" for="first-name">Family Name</label>
@@ -72,7 +67,7 @@ and open the template in the editor.
                     <h2 class="nhsd-t-heading-xl nhsd-!t-margin-bottom-6">{{patientsFound.length}} patient(s) identified using the following search terms: </h2>
                     <ul class="nhsd-t-list nhsd-t-list--bullet nhsd-!t-margin-bottom-6">
                         <li ng-if="searchRequest.dateOfBirth.year > 0">Date of Birth: {{searchRequest.dateOfBirth.year}}-{{searchRequest.dateOfBirth.month}}-{{searchRequest.dateOfBirth.day}}</li>
-                        <li ng-if="searchRequest.nhsNumber && searchRequest.nhsNumber.trim().length > 0">NHS Number: {{searchRequest.nhsNumber}}</li>
+                        <li ng-if="searchRequest.nhsNumber && searchRequest.nhsNumber > 0">NHS Number: {{searchRequest.nhsNumber}}</li>
                         <li ng-if="searchRequest.familyName && searchRequest.familyName.trim().length > 0">Family Name: {{searchRequest.familyName}}</li>
                         <li ng-if="searchRequest.givenName && searchRequest.givenName.trim().length > 0">Given Name: {{searchRequest.givenName}} </li>
                     </ul>
@@ -81,10 +76,7 @@ and open the template in the editor.
                             <label class="nhsd-t-form-label" for="county">Matched Patients</label>
                             <span class="nhsd-t-form-hint">Please select a patient to continue</span>
                             <div class="nhsd-t-form-control">
-
-
                                 <div class="nhsd-m-table nhsd-t-body">
-
                                     <table  data-responsive >
                                         <thead>
                                             <tr>
@@ -94,7 +86,6 @@ and open the template in the editor.
                                                 <th>NHS Number</th> 
                                             </tr>
                                         </thead>
-
                                         <tbody ng-class="{'nhsd-m-table__highlighted-items': selectedPatient == patient.id }" ng-repeat="patient in patientsFound" >                                            
                                             <tr >
                                                 <td><a ng-click="setSelected(patient.id)">{{patient.resource.givenNames}}</a></td>

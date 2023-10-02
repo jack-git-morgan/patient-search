@@ -31,10 +31,14 @@ public class ResourceServlet {
 
         boolean validDate = true;
         boolean dobSupplied = false;
+        
+        int day = Integer.valueOf(dob.getDay());
+        int month = Integer.valueOf(dob.getMonth());
+        int year = Integer.valueOf(dob.getYear());
 
-        if (dob.getDay() > 0 || dob.getMonth() > 0 || dob.getYear() > 0) {
+        if (day > 0 || month > 0 || year > 0) {
 
-            if (dob.getDay() == 0 || dob.getMonth() == 0 || dob.getYear() == 0) {
+            if (day == 0 || month == 0 || year == 0) {
                 validDate = false;
             }
 

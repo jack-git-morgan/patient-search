@@ -53,7 +53,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                 return;
             }
 
-            if ($scope.searchRequest.nhsNumber != null && $scope.searchRequest.nhsNumber.trim().length > 0) {
+            if ($scope.searchRequest.nhsNumber != null && $scope.searchRequest.nhsNumber > 0) {
 
                 const isNumbersOnly = /^\d+$/.test($scope.searchRequest.nhsNumber);
 
@@ -63,14 +63,14 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                     return;
                 }
 
-                if ($scope.searchRequest.nhsNumber.trim().length != 10) {
+                if ($scope.searchRequest.nhsNumber.toString().trim().length != 10) {
                     toastService.openToast("NHS number must be 10 digits long");
                     $scope.loading = false;
                     return;
                 }
             }
 
-            if (!dobSupplied && (($scope.searchRequest.nhsNumber == null || $scope.searchRequest.nhsNumber.trim().length == 0) &&
+            if (!dobSupplied && (($scope.searchRequest.nhsNumber == null || $scope.searchRequest.nhsNumber == 0) &&
                     ($scope.searchRequest.familyName == null || $scope.searchRequest.familyName.trim().length == 0) &&
                     ($scope.searchRequest.givenName == null || $scope.searchRequest.givenName.trim().length == 0))) {
 
@@ -78,6 +78,7 @@ app.controller("patientSearchController", ["$scope", "$http", "toastService", fu
                 $scope.loading = false;
 
             } else {
+                
                 $http.post("/api/resource/search_patients", $scope.searchRequest).then(function (result) {
 
                     $scope.loading = false;

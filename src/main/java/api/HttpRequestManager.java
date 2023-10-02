@@ -42,7 +42,9 @@ public class HttpRequestManager {
     }
 
     public Object makeGetRequest(String requestUrl, Class transformer) {
-
+        
+        if (requestUrl == null) return null;
+        
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         PropertiesManager propertiesManager = PropertiesManager.getInstance();
         Object searchResults = null;
@@ -75,7 +77,7 @@ public class HttpRequestManager {
     public String buildPatientSearchUrl(SearchPatientRequest request) {
         
         PropertiesManager propertiesManager = PropertiesManager.getInstance();
-        String requestUrl = propertiesManager.BEARER_TOKEN + "?";
+        String requestUrl = propertiesManager.BASE_URL + "?";
         
         if (request.getFamilyName() != null && request.getFamilyName().trim().length() > 0) {
             requestUrl += "family=" + request.getFamilyName() + "&";
@@ -91,10 +93,14 @@ public class HttpRequestManager {
 
         SearchPatientRequestDate dob = request.getDateOfBirth();
 
-        if (dob.getYear() > 0 && dob.getMonth() > 0 && dob.getYear() > 0) {
+        if (dob != null && Integer.valueOf(dob.getYear()) > 0 && Integer.valueOf(dob.getMonth()) > 0 && Integer.valueOf(dob.getYear()) > 0) {
             requestUrl += "birthdate=" + dob.getYear() + "-" + dob.getMonth() + "-" + dob.getDay() + "&";
         }
+        
+        String url = StringUtils.chop(requestUrl);
+        
+        if (!url.contains("?")) url = null;
 
-        return StringUtils.chop(requestUrl);
+        return url;
     }
 }

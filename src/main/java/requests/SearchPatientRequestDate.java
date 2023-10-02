@@ -11,31 +11,37 @@ package requests;
  */
 public class SearchPatientRequestDate {
     
-    private int day;
-    private int month;
-    private int year;
+    private String day;
+    private String month;
+    private String year;
 
-    public int getDay() {
+    public String getDay() {
+        if (this.day == null) this.day = "0";
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
-    public int getMonth() {
+    public String getMonth() {
+        
+        if (this.month == null) this.month = "0";
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public int getYear() {
+    public String getYear() {
+        if (this.year == null) this.year = "0";
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
+
+    
 }
